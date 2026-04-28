@@ -296,7 +296,7 @@ Transform:
   m_GameObject: {fileID: 94935224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.22771, y: 1.48503, z: 0}
+  m_LocalPosition: {x: -15.94, y: 1.48503, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -631,6 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 496586273}
   - component: {fileID: 496586272}
+  - component: {fileID: 496586274}
   m_Layer: 0
   m_Name: enemy prototype
   m_TagString: Untagged
@@ -700,6 +701,18 @@ Transform:
   - {fileID: 488015351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &496586274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496586271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178669ab7fcc2944780ec8f092efe032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
 --- !u!1 &992127967
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +727,7 @@ GameObject:
   - component: {fileID: 992127971}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -827,3 +840,4 @@ SceneRoots:
   - {fileID: 390958838}
   - {fileID: 992127970}
   - {fileID: 94935227}
+  - {fileID: 496586273}
