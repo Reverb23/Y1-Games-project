@@ -2,9 +2,10 @@ using System;
 using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
+
 {
     private Rigidbody2D rb;
-    [SerializeField] private float Speed = 1.0f;
+    [SerializeField] private float Speed = 1000.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
