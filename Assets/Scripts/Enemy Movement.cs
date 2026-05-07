@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class EnemyFollowing : MonoBehaviour
 {
     private int Damage = 5;
     private float Speed = 1.5f;
@@ -9,15 +9,18 @@ public class NewMonoBehaviourScript : MonoBehaviour
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;
 
+    private Rigidbody2D rb;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PlayerObject = GameObject.FindWithTag("Player");
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         MoveToPlayer();
 
@@ -26,8 +29,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     void MoveToPlayer()
     {
         Vector2 DistanceToPlayer = PlayerPos - (Vector2)transform.position;
-        transform.position += Speed * Time.deltaTime * (Vector3)DistanceToPlayer.normalized;
-        //(Vector2)transform.position + (Speed * Time.deltaTime * PlayerPos);
-        Debug.Log(PlayerPos);
+        rb.linearVelocity = Speed * (Vector3)DistanceToPlayer.normalized;
+
+    
     }
 }

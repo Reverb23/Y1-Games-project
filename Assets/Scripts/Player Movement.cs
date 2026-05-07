@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 
 {
     private Rigidbody2D rb;
-    [SerializeField] private float Speed = 1000.0f;
+    [SerializeField] private float Speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,8 +13,8 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        rb.linearVelocity = InputManaging.instance.InputAxis * Speed * Time.deltaTime;
+        rb.linearVelocity = InputManaging.instance.InputAxis * Speed;
     }
 }
