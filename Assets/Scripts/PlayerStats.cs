@@ -5,12 +5,7 @@ public class PlayerStats : MonoBehaviour
 {
 
     public int PlayerHealth = 100; //needs to be externally modified
-    private int _PlayerLevel = 1; //real value of player level and the one to be modified
-    public static int PlayerLevel //global and un-modifiable/read only version of playerlevel
-    {  
-        get { return _PlayerLevel; }
-    }
-    
+    private int PlayerLevel = 1; //real value of player level and the one to be modified
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,6 +33,14 @@ public class PlayerStats : MonoBehaviour
     
      
     
+    }
+    public void PlayerAttacks()
+    {
+        
+        print("chud");
+
+
+
     }
 
 }
