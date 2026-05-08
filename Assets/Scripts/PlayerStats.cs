@@ -20,11 +20,12 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
-        print("munt");
-        if (collision.gameObject.CompareTag("EnemyHitbox"))
+        Debug.Log("munt");
+        if (collision.gameObject.CompareTag("Enemy"))
         {
 
-            print("goon");
+            Debug.Log("goon");
+            PlayerHealth -= 10;
                 
         }
     
