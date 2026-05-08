@@ -4,7 +4,13 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 
-    public int PlayerHealth = 100;
+    public int PlayerHealth = 100; //needs to be externally modified
+    private int _PlayerLevel = 1; //real value of player level and the one to be modified
+    public static int PlayerLevel //global and un-modifiable/read only version of playerlevel
+    {  
+        get { return _PlayerLevel; }
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +26,7 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
-        Debug.Log("munt");
+        Debug.Log("colission detected");
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
@@ -29,7 +35,7 @@ public class PlayerStats : MonoBehaviour
                 
         }
     
-    
+     
     
     }
 
