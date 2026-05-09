@@ -24,7 +24,12 @@ public class InputManaging : MonoBehaviour
 
     public void OnMouse(InputAction.CallbackContext context)
     {
-        PlayerStatsReference.PlayerAttacks();
+        if (context.started)
+        { 
+        
+            PlayerStatsReference.PlayerAttacks();
+        }
+
     }
     void Start()
     {
