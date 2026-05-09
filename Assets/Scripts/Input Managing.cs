@@ -7,7 +7,6 @@ public class InputManaging : MonoBehaviour
     
     public Vector2 InputAxis { get; private set; }
     public static InputManaging instance;
-    public bool AttackPressed = false;
     
     public PlayerStats PlayerStatsReference;
     private void Awake()
@@ -26,7 +25,6 @@ public class InputManaging : MonoBehaviour
     {
         if (context.started)
         { 
-        
             PlayerStatsReference.PlayerAttacks();
         }
 
