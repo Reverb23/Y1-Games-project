@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     private int PlayerLevel = 1; //real value of player level and the one to be modified
     private float ProjectileAngle = 120f; 
     private int ProjectileAmount = 3;
+    public bool PlayerAlive = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
