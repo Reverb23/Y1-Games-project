@@ -437,7 +437,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawning
   EnemyPrototype: {fileID: 496586271}
   PlayerStatsReference: {fileID: 992127972}
-  SpawnInterval: 1
+  SpawnInterval: 5
+  PlayerObject: {fileID: 992127967}
+  SpawnDist: 15
 --- !u!4 &178129779
 Transform:
   m_ObjectHideFlags: 0
@@ -609,7 +611,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1128,6 +1130,10 @@ PrefabInstance:
     - target: {fileID: 1016789237368701756, guid: 7a3446fafcd788f4fbdb772da50154f6, type: 3}
       propertyPath: m_Name
       value: enemy prototype
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160010850460415437, guid: 7a3446fafcd788f4fbdb772da50154f6, type: 3}
+      propertyPath: Speed
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 8265163839119715323, guid: 7a3446fafcd788f4fbdb772da50154f6, type: 3}
       propertyPath: m_LocalPosition.x
