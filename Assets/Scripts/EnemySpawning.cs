@@ -14,7 +14,7 @@ public class EnemySpawning : MonoBehaviour
     [SerializeField]
     GameObject PlayerObject;
 
-    Vector2 PlayerPos =>PlayerObject.transform.position;
+    public Vector2 PlayerPos =>PlayerObject.transform.position;
     [SerializeField]
     private float SpawnDist = 15f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,11 +35,11 @@ public class EnemySpawning : MonoBehaviour
         if (PlayerStatsReference.PlayerAlive == true)
         {
             
-            GameObject NewEnemy = Instantiate(EnemyPrototype, new Vector3(PlayerPos.x+Random.Range(-SpawnDist,SpawnDist) ,PlayerPos.y+Random.Range(-5f,5),0), Quaternion.identity);
+            GameObject NewEnemy = Instantiate(EnemyPrototype, new Vector3(PlayerPos.x+Random.Range(-SpawnDist,SpawnDist) ,PlayerPos.y+Random.Range(-SpawnDist,SpawnDist),0), Quaternion.identity);
             yield return new WaitForSeconds(SpawnInterval);
             PlayerPos = PlayerObject.transform.position;
             StartCoroutine(Spawning(EnemyPrototype, PlayerPos, PlayerObject, SpawnDist));
-            print(PlayerPos);
+            
         }
 
 

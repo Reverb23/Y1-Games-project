@@ -9,10 +9,17 @@ public class InputManaging : MonoBehaviour
     public static InputManaging instance;
     
     public PlayerStats PlayerStatsReference;
+    [SerializeField]
+    public EnemySpawning EnemySpawningReference;
+    [SerializeField]
+    public Vector2 PlayerPosReference;
     private void Awake()
     {
+
         instance = this;
-       
+        EnemySpawningReference = FindFirstObjectByType<EnemySpawning>();
+        PlayerPosReference = EnemySpawningReference.PlayerPos;
+        
 
     }
     public void OnMove(InputAction.CallbackContext callback)
@@ -25,7 +32,8 @@ public class InputManaging : MonoBehaviour
     {
         if (context.started)
         { 
-            PlayerStatsReference.PlayerAttacks();
+            PlayerStatsReference.PlayerAttacks(PlayerPosReference);
+            print(PlayerPosReference);
         }
 
     }
@@ -37,6 +45,7 @@ public class InputManaging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerPosReference = EnemySpawningReference.PlayerPos;
 
     }
 }
