@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -66,7 +67,9 @@ public class PlayerStats : MonoBehaviour
             // Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
             Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>();
             // Projectilerb.AddForce((Vector2)Projectilerb.transform.position+(Vector2)PlayerObject.transform.position* ProjectileForce, ForceMode2D.Force);
-            ProjectileDirection = new Vector2((float)Math.Cos(ProjectileAngle), (float)Math.Sin(ProjectileAngle)/2);
+            // ProjectileDirection = new Vector2((float)Math.Cos(ProjectileAngle), (float)Math.Sin(ProjectileAngle));
+            // Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
+            ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
             Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
             print(PlayerObject.transform.position);
             print("ForceMode applied");
