@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManaging
   PlayerStatsReference: {fileID: 992127972}
+  EnemySpawningReference: {fileID: 0}
+  PlayerPosReference: {x: 0, y: 0}
 --- !u!114 &94935226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,11 @@ MonoBehaviour:
   PlayerHealth: 100
   PlayerLevel: 1
   PlayerAlive: 1
+  PlayerProjectile: {fileID: 0}
+  PlayerObject: {fileID: 0}
+  ProjectileRadius: 3
+  ProjectileForce: 150
+  Projectilerb: {fileID: 0}
 --- !u!61 &185857502
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -830,6 +837,11 @@ MonoBehaviour:
   PlayerHealth: 100
   PlayerLevel: 1
   PlayerAlive: 1
+  PlayerProjectile: {fileID: 1855196546}
+  PlayerObject: {fileID: 992127967}
+  ProjectileRadius: 3
+  ProjectileForce: 150
+  Projectilerb: {fileID: 1855196548}
 --- !u!1 &1306688954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,7 +1070,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0

@@ -6,7 +6,7 @@ public class EnemyFollowing : MonoBehaviour
     private int Damage = 5;
     [SerializeField]
     private float Speed = 1.5f;
-    private float Health = 50.0f;
+    private float Health = 15.0f;
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;
 
@@ -33,5 +33,15 @@ public class EnemyFollowing : MonoBehaviour
         rb.linearVelocity = Speed * (Vector3)DistanceToPlayer.normalized;
 
     
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print(collision);
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
+        {
+            print("enemy hit");
+
+
+        }
     }
 }
