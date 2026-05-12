@@ -60,19 +60,11 @@ public class PlayerStats : MonoBehaviour
             GameObject NewProjectile = Instantiate(PlayerProjectile, new Vector3(PlayerPos.x+(float)(ProjectileRadius*Math.Cos(ProjectileAngle)) ,PlayerPos.y+(float)(ProjectileRadius*Math.Sin(ProjectileAngle)), 0),Quaternion.identity);
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
             print(ProjectileAngle);
-            // Projectilerb.AddForce((Vector2)Projectilerb.transform.position* ProjectileForce, ForceMode2D.Force);
-            // Projectilerb.linearVelocity = (Vector2)Projectilerb.transform.position-PlayerPos*ProjectileForce;
-            // Projectilerb.MovePosition(Projectilerb + ProjectileForce*Time.deltaTime);
-            // ProjectileDirection = new Vector2(Mathf.Cos(ProjectileAngle), Mathf.Sin(ProjectileAngle));
-            // Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
             Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>();
-            // Projectilerb.AddForce((Vector2)Projectilerb.transform.position+(Vector2)PlayerObject.transform.position* ProjectileForce, ForceMode2D.Force);
-            // ProjectileDirection = new Vector2((float)Math.Cos(ProjectileAngle), (float)Math.Sin(ProjectileAngle));
-            // Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
             ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
             Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
-            print(PlayerObject.transform.position);
-            print("ForceMode applied");
+            
+            
         }
         
         ProjectileAngle = 0;
