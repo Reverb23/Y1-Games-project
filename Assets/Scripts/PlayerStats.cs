@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
     public int PlayerHealth = 100; //needs to be externally modified
     [SerializeField]
     private int PlayerLevel = 1; //real value of player level and the one to be modified
+    public int PlayerDamage = 5;
     private float ProjectileAngle = 0f; 
     private int ProjectileAmount = 3;
     public bool PlayerAlive = true;
@@ -21,10 +22,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     public Rigidbody2D Projectilerb; // get rigidbody for applying force away from player
     private Vector2 ProjectileDirection;
+    public static PlayerStats instance;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PlayerObject = GameObject.FindWithTag("Player");
+        instance = this;
         
     }
 
@@ -60,7 +64,7 @@ public class PlayerStats : MonoBehaviour
             GameObject NewProjectile = Instantiate(PlayerProjectile, new Vector3(PlayerPos.x+(float)(ProjectileRadius*Math.Cos(ProjectileAngle)) ,PlayerPos.y+(float)(ProjectileRadius*Math.Sin(ProjectileAngle)), 0),Quaternion.identity);
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
             print(ProjectileAngle);
-            Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>();
+            Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>(); //has tyo be here as it is a new rb every time
             ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
             Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
             

@@ -5,12 +5,16 @@ public class EnemyFollowing : MonoBehaviour
 {
     private int Damage = 5;
     [SerializeField]
-    private float Speed = 1.5f;
+    private float Speed;
     private float Health = 15.0f;
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;
 
     private Rigidbody2D rb;
+    public PlayerStats PlayerStatsReference => PlayerStats.instance;
+    private GameObject ThisEnemy;
+    
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,7 +43,11 @@ public class EnemyFollowing : MonoBehaviour
         print(collision);
         if (collision.gameObject.CompareTag("PlayerProjectile"))
         {
-            print("enemy hit");
+            Health -= PlayerStatsReference.PlayerDamage;
+            if (Health <= 0)
+            {
+                Destroy(gameObject);
+            }
 
 
         }
