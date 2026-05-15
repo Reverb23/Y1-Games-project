@@ -511,6 +511,7 @@ MonoBehaviour:
   ProjectileRadius: 3
   ProjectileForce: 150
   Projectilerb: {fileID: 0}
+  EnemyFollowingingReference: {fileID: 0}
 --- !u!61 &185857502
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -839,6 +840,7 @@ MonoBehaviour:
   ProjectileRadius: 3
   ProjectileForce: 150
   Projectilerb: {fileID: 1855196548}
+  EnemyFollowingingReference: {fileID: 0}
 --- !u!1 &1306688954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,7 +1156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8265163839119715323, guid: 7a3446fafcd788f4fbdb772da50154f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35.5
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 8265163839119715323, guid: 7a3446fafcd788f4fbdb772da50154f6, type: 3}
       propertyPath: m_LocalPosition.z

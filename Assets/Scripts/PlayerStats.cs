@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 
-    public int PlayerHealth = 100; //needs to be externally modified
+    public float PlayerHealth = 100f; //needs to be externally modified
     [SerializeField]
     private int PlayerLevel = 1; //real value of player level and the one to be modified
     public int PlayerDamage = 5;
@@ -23,6 +23,7 @@ public class PlayerStats : MonoBehaviour
     public Rigidbody2D Projectilerb; // get rigidbody for applying force away from player
     private Vector2 ProjectileDirection;
     public static PlayerStats instance;
+    public EnemyFollowing EnemyFollowingingReference;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,20 +39,21 @@ public class PlayerStats : MonoBehaviour
         
     }
 
-    // void OnCollisionEnter2D(Collision2D collision) 
-    // {
-    //     Debug.Log("colission detected");
-    //     if (collision.gameObject.CompareTag("Enemy"))
-    //     {
-
-    //         Debug.Log("goon");
-    //         PlayerHealth -= 10;
-                
-    //     }
+    void OnCollisionEnter2D(Collision2D collision) 
+    {
+        Debug.Log("colission detected");
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            PlayerHealth -= 10;              
+        }
     
-     
+        if (PlayerHealth <= 0)
+        {
+            Debug.Log("death");
+            ;
+        }
     
-    // }
+    }
     public void PlayerAttacks(Vector2 PlayerPos) //called whenever the player attacsk
     { 
         //player level = amount of projectiles, inc every 5
@@ -63,11 +65,10 @@ public class PlayerStats : MonoBehaviour
         {
             GameObject NewProjectile = Instantiate(PlayerProjectile, new Vector3(PlayerPos.x+(float)(ProjectileRadius*Math.Cos(ProjectileAngle)) ,PlayerPos.y+(float)(ProjectileRadius*Math.Sin(ProjectileAngle)), 0),Quaternion.identity);
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
-            print(ProjectileAngle);
             Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>(); //has tyo be here as it is a new rb every time
             ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
             Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
-            
+            PlayerLevelUp(PlayerHealth, PlayerLevel, PlayerDamage);
             
         }
         
@@ -89,5 +90,14 @@ public class PlayerStats : MonoBehaviour
         // }
 
     }
+    public void PlayerLevelUp(float PlayerHealth, int PlayerLevel, int PlayerDamage)
+    {
+        float PlayerMult = 3.0f;
+        float EnemyMult = 1.2f;
+        PlayerHealth = PlayerMult *(float)Math.Log10(PlayerHealth);
+        
+        EnemyFollowingingReference.Damage **= 1.2;
 
+
+    }
 }
