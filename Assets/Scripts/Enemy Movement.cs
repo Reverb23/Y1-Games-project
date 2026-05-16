@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class EnemyFollowing : MonoBehaviour
 {
-    public int Damage = 5;
+    public static int Damage = 5;
     [SerializeField]
-    public float Speed = 3f;
-    private float Health = 15.0f;
+    public static float Speed = 3;
+    public static int MaxHealth = 15;
+    private  int Health = 15;
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;
 
@@ -22,6 +23,7 @@ public class EnemyFollowing : MonoBehaviour
     {
         PlayerObject = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
+        Health = MaxHealth;
     }
 
     // Update is called once per frame
@@ -40,12 +42,14 @@ public class EnemyFollowing : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision);
+        
         if (collision.gameObject.CompareTag("PlayerProjectile"))
         {
-            Health -= PlayerStatsReference.PlayerDamage;
+            Health -= (int)PlayerStatsReference.PlayerDamage;
             if (Health <= 0)
             {
+                PlayerStatsReference.OnEnemyKill();
+                print("kill");
                 Destroy(gameObject);
             }
 

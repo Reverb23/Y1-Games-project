@@ -10,7 +10,7 @@ public class EnemySpawning : MonoBehaviour
     [SerializeField]
     private PlayerStats PlayerStatsReference;
     [SerializeField]
-    private int SpawnInterval = 1;
+    public float SpawnInterval = 2;
     [SerializeField]
     GameObject PlayerObject;
 

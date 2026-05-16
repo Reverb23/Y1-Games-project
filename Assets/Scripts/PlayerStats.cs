@@ -8,11 +8,10 @@ public class PlayerStats : MonoBehaviour
     public float PlayerHealth = 100f; //needs to be externally modified
     [SerializeField]
     private int PlayerLevel = 2; //real value of player level and the one to be modified
-    public int PlayerDamage = 5;
+    public float PlayerDamage = 5;
     private float ProjectileAngle = 0f; 
     private int ProjectileAmount = 3;
     public bool PlayerAlive = true;
-    private float PlayerProjAmount = 3;
     public GameObject PlayerProjectile;
     public GameObject PlayerObject;
     [SerializeField]
@@ -23,7 +22,10 @@ public class PlayerStats : MonoBehaviour
     public Rigidbody2D Projectilerb; // get rigidbody for applying force away from player
     private Vector2 ProjectileDirection;
     public static PlayerStats instance;
-    public EnemyFollowing EnemyFollowingingReference;
+    public EnemyFollowing EnemyFollowingReference;
+    public int KillCount = 0;
+    public int LevelUpKills = 15;
+    public EnemySpawning EnemySpawningReference;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,7 +43,7 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
-        Debug.Log("colission detected");
+        
         if (collision.gameObject.CompareTag("Enemy"))
         {
             PlayerHealth -= 10;              
@@ -61,24 +63,24 @@ public class PlayerStats : MonoBehaviour
         //level up by killing'WIP
 
 
-        for (int i = 0; i<PlayerProjAmount; i++) //spawn correct amount of projectiles
+        for (int i = 0; i<ProjectileAmount; i++) //spawn correct amount of projectiles
         {
             GameObject NewProjectile = Instantiate(PlayerProjectile, new Vector3(PlayerPos.x+(float)(ProjectileRadius*Math.Cos(ProjectileAngle)) ,PlayerPos.y+(float)(ProjectileRadius*Math.Sin(ProjectileAngle)), 0),Quaternion.identity);
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
             Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>(); //has tyo be here as it is a new rb every time
             ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
             Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
-            PlayerLevelUp(PlayerHealth, PlayerLevel, PlayerDamage);
+            
             
         }
         
         ProjectileAngle = 0;
+        
 
 
 
 
-
-                    //Move to PlayerLevel Function
+        //Move to PlayerLevel Function
         // if (PlayerLevel < 6)
         // {
         //     PlayerProjAmount = 3;
@@ -90,14 +92,43 @@ public class PlayerStats : MonoBehaviour
         // }
 
     }
-    public void PlayerLevelUp(float PlayerHealth, int PlayerLevel, int PlayerDamage)
+    public void PlayerLevelUp()
     {
-        float PlayerMult = 3.0f;
-        float EnemyMult = 1.2f;
-        PlayerHealth *= PlayerMult *(float)Math.Log10(PlayerLevel);
-        print(PlayerHealth);
-        // EnemyFollowingingReference.Damage *= 1.2;
+        float PlayerMult = 1.8f;
+        float EnemyMult = 1.4f;
+        PlayerLevel++;
+        print("LEVEL UP");
+        LevelUpKills = (int)(1.3f * LevelUpKills);
+        if (PlayerLevel > 1)
+        {
+            PlayerHealth *= PlayerMult * ((float)Math.Log10(2*(PlayerLevel)));
+            PlayerDamage *= PlayerMult * ((float)Math.Log10(2 * (PlayerLevel)));
+            print(PlayerHealth);
+            EnemyFollowing.MaxHealth = (int)(EnemyMult * EnemyFollowing.MaxHealth);
+            EnemyFollowing.Damage = (int)(EnemyMult * EnemyFollowing.Damage);
+            EnemyFollowing.Speed = (int)((EnemyMult*0.75) * EnemyFollowing.Speed);
+            EnemySpawningReference.SpawnInterval = (0.99f*EnemySpawningReference.SpawnInterval);
+            if (PlayerLevel % 3 == 0)
+            {
+                ProjectileAmount++;
+                print(ProjectileAmount);
+            }
 
+        }
+        //print(LevelUpKills);
+        KillCount = 0;
+
+    }
+    public void OnEnemyKill()
+    {
+        KillCount++;
+        if (KillCount >= LevelUpKills)
+        {
+            PlayerLevelUp();
+        
+        }
 
     }
 }
+
+
