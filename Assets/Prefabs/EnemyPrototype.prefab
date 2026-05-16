@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178669ab7fcc2944780ec8f092efe032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  Damage: 5
+  Speed: 4.5
 --- !u!50 &1276505186176924870
 Rigidbody2D:
   serializedVersion: 5

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class EnemyFollowing : MonoBehaviour
 {
-    private int Damage = 5;
+    public int Damage = 5;
     [SerializeField]
-    private float Speed;
+    public float Speed = 3f;
     private float Health = 15.0f;
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;

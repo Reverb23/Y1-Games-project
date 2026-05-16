@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
 
     public float PlayerHealth = 100f; //needs to be externally modified
     [SerializeField]
-    private int PlayerLevel = 1; //real value of player level and the one to be modified
+    private int PlayerLevel = 2; //real value of player level and the one to be modified
     public int PlayerDamage = 5;
     private float ProjectileAngle = 0f; 
     private int ProjectileAmount = 3;
@@ -94,9 +94,9 @@ public class PlayerStats : MonoBehaviour
     {
         float PlayerMult = 3.0f;
         float EnemyMult = 1.2f;
-        PlayerHealth = PlayerMult *(float)Math.Log10(PlayerHealth);
-        
-        EnemyFollowingingReference.Damage **= 1.2;
+        PlayerHealth *= PlayerMult *(float)Math.Log10(PlayerLevel);
+        print(PlayerHealth);
+        // EnemyFollowingingReference.Damage *= 1.2;
 
 
     }
