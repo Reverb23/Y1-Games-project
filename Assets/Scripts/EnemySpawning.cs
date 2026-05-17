@@ -34,7 +34,7 @@ public class EnemySpawning : MonoBehaviour
     {
         if (PlayerStatsReference.PlayerAlive == true)
         {
-            for (int i = 0; i<PlayerStatsReference.PlayerLevel*0.1; i++)
+            for (int i = 0; i<PlayerStatsReference.PlayerLevel*0.5; i++)
             {
                 
             

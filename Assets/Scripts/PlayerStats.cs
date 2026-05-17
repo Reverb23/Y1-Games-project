@@ -29,13 +29,20 @@ public class PlayerStats : MonoBehaviour
     public EnemySpawning EnemySpawningReference;
     public PlayerHealthBar PlayerHealthBarReference;
     public EnemyHealthBar EnemyHealthBarReference;
+    public UpdateKillLabel UpdateKillLabelReference;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    void Awake()
+    {
+        
+        instance = this;
+    }
     void Start()
     {
         PlayerObject = GameObject.FindWithTag("Player");
-        instance = this;
-        PlayerHealthBarReference.SetHealthOnLevelStart();
+        print(PlayerStats.instance);
+        UpdateKillLabelReference.UpdateKillCount();
         
     }
 
@@ -51,7 +58,8 @@ public class PlayerStats : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             PlayerHealth -= EnemyFollowing.Damage;
-            PlayerHealthBarReference.SetHealthOnChange();              
+            PlayerHealthBarReference.SetHealthOnChange();
+            
         }
     
         if (PlayerHealth <= 0)
@@ -111,7 +119,7 @@ public class PlayerStats : MonoBehaviour
             PlayerDamage *= PlayerMult * ((float)Math.Log10(2 * (PlayerLevel)));
             print(PlayerHealth);
             EnemyFollowing.MaxHealth = (int)((EnemyMult*1.3) * EnemyFollowing.MaxHealth);
-            EnemyFollowing.Damage = (int)((EnemyMult*3) * EnemyFollowing.Damage);
+            EnemyFollowing.Damage = (int)((EnemyMult*1.5) * EnemyFollowing.Damage);
             EnemyFollowing.Speed = (int)(EnemyMult * EnemyFollowing.Speed);
             EnemySpawningReference.SpawnInterval = (0.99f*EnemySpawningReference.SpawnInterval);
             if (PlayerLevel % 3 == 0)
@@ -129,6 +137,7 @@ public class PlayerStats : MonoBehaviour
     public void OnEnemyKill()
     {
         KillCount++;
+        UpdateKillLabelReference.UpdateKillCount();
         if (KillCount >= LevelUpKills)
         {
             PlayerLevelUp();

@@ -4,12 +4,19 @@ public class PlayerHealthBar : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Slider slider;
-    public PlayerStats PlayerStatsReference;
+    public PlayerStats PlayerStatsReference => PlayerStats.instance;
     void Start()
     {
-        
-    }
+        slider.maxValue = PlayerStatsReference.PlayerMaxHealth;
+        slider.value = PlayerStatsReference.PlayerMaxHealth;
 
+        print(PlayerStatsReference);
+    }
+    void Awake()
+    {
+        
+        slider = GetComponentInChildren<Slider>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +25,9 @@ public class PlayerHealthBar : MonoBehaviour
     public void SetHealthOnChange()
     {
         slider.value = PlayerStatsReference.PlayerHealth;
+        print(slider);
+        print("fuck");
+        
     }
     public void SetHealthOnLevelStart()
     {

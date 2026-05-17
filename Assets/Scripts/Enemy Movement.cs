@@ -7,7 +7,7 @@ public class EnemyFollowing : MonoBehaviour
     [SerializeField]
     public static float Speed = 3;
     public static int MaxHealth = 15;
-    public  int Health = 15;
+    public int Health = 15;
     GameObject PlayerObject;
     Vector2 PlayerPos =>PlayerObject.transform.position;
 
@@ -25,8 +25,14 @@ public class EnemyFollowing : MonoBehaviour
         PlayerObject = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         Health = MaxHealth;
+        EnemyHealthBarReference.SetHealthOnLevelStart();
     }
+    void Awake()
+    {
+        
+        EnemyHealthBarReference = GetComponentInChildren<EnemyHealthBar>();
 
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -46,7 +52,7 @@ public class EnemyFollowing : MonoBehaviour
         
         if (collision.gameObject.CompareTag("PlayerProjectile"))
         {
-            Health -= (int)PlayerStatsReference.PlayerDamage;
+            Health -= (int)PlayerStatsReference.PlayerDamage/2;
             Destroy(collision.gameObject);
             EnemyHealthBarReference.SetHealthOnChange();
             if (Health < 0)
