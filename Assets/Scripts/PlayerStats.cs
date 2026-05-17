@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 
+    public float PlayerMaxHealth = 100f;
     public float PlayerHealth = 100f; //needs to be externally modified
     [SerializeField]
-    private int PlayerLevel = 2; //real value of player level and the one to be modified
+    public int PlayerLevel = 2; //real value of player level and the one to be modified
     public float PlayerDamage = 5;
     private float ProjectileAngle = 0f; 
     private int ProjectileAmount = 3;
@@ -26,12 +27,15 @@ public class PlayerStats : MonoBehaviour
     public int KillCount = 0;
     public int LevelUpKills = 15;
     public EnemySpawning EnemySpawningReference;
+    public PlayerHealthBar PlayerHealthBarReference;
+    public EnemyHealthBar EnemyHealthBarReference;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PlayerObject = GameObject.FindWithTag("Player");
         instance = this;
+        PlayerHealthBarReference.SetHealthOnLevelStart();
         
     }
 
@@ -46,13 +50,14 @@ public class PlayerStats : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            PlayerHealth -= 10;              
+            PlayerHealth -= EnemyFollowing.Damage;
+            PlayerHealthBarReference.SetHealthOnChange();              
         }
     
         if (PlayerHealth <= 0)
         {
             Debug.Log("death");
-            ;
+            
         }
     
     }
@@ -63,7 +68,7 @@ public class PlayerStats : MonoBehaviour
         //level up by killing'WIP
 
 
-        for (int i = 0; i<ProjectileAmount; i++) //spawn correct amount of projectiles
+        for (int i = 0; i<ProjectileAmount+1; i++) //spawn correct amount of projectiles
         {
             GameObject NewProjectile = Instantiate(PlayerProjectile, new Vector3(PlayerPos.x+(float)(ProjectileRadius*Math.Cos(ProjectileAngle)) ,PlayerPos.y+(float)(ProjectileRadius*Math.Sin(ProjectileAngle)), 0),Quaternion.identity);
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
@@ -101,23 +106,25 @@ public class PlayerStats : MonoBehaviour
         LevelUpKills = (int)(1.3f * LevelUpKills);
         if (PlayerLevel > 1)
         {
+            PlayerMaxHealth *= PlayerMult * ((float)Math.Log10(2*(PlayerLevel)));
             PlayerHealth *= PlayerMult * ((float)Math.Log10(2*(PlayerLevel)));
             PlayerDamage *= PlayerMult * ((float)Math.Log10(2 * (PlayerLevel)));
             print(PlayerHealth);
-            EnemyFollowing.MaxHealth = (int)(EnemyMult * EnemyFollowing.MaxHealth);
-            EnemyFollowing.Damage = (int)(EnemyMult * EnemyFollowing.Damage);
-            EnemyFollowing.Speed = (int)((EnemyMult*0.75) * EnemyFollowing.Speed);
+            EnemyFollowing.MaxHealth = (int)((EnemyMult*1.3) * EnemyFollowing.MaxHealth);
+            EnemyFollowing.Damage = (int)((EnemyMult*3) * EnemyFollowing.Damage);
+            EnemyFollowing.Speed = (int)(EnemyMult * EnemyFollowing.Speed);
             EnemySpawningReference.SpawnInterval = (0.99f*EnemySpawningReference.SpawnInterval);
             if (PlayerLevel % 3 == 0)
             {
                 ProjectileAmount++;
-                print(ProjectileAmount);
+                
             }
 
         }
         //print(LevelUpKills);
         KillCount = 0;
-
+        PlayerHealthBarReference.SetHealthOnLevelUp();
+        EnemyHealthBarReference.SetHealthOnLevelUp();
     }
     public void OnEnemyKill()
     {
@@ -131,4 +138,4 @@ public class PlayerStats : MonoBehaviour
     }
 }
 
-
+//TODO make UI, HEalthbars, menus, player dying, timers

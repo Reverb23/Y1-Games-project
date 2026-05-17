@@ -34,12 +34,15 @@ public class EnemySpawning : MonoBehaviour
     {
         if (PlayerStatsReference.PlayerAlive == true)
         {
+            for (int i = 0; i<PlayerStatsReference.PlayerLevel*0.1; i++)
+            {
+                
             
-            GameObject NewEnemy = Instantiate(EnemyPrototype, new Vector3(PlayerPos.x+Random.Range(-SpawnDist,SpawnDist) ,PlayerPos.y+Random.Range(-SpawnDist,SpawnDist),0), Quaternion.identity);
-            yield return new WaitForSeconds(SpawnInterval);
-            PlayerPos = PlayerObject.transform.position;
-            StartCoroutine(Spawning(EnemyPrototype, PlayerPos, PlayerObject, SpawnDist));
-            
+                GameObject NewEnemy = Instantiate(EnemyPrototype, new Vector3(PlayerPos.x+Random.Range(-PlayerPos.x-SpawnDist,PlayerPos.x+SpawnDist) ,PlayerPos.y+Random.Range(-PlayerPos.y-SpawnDist,PlayerPos.y+SpawnDist),0), Quaternion.identity);
+                yield return new WaitForSeconds(SpawnInterval);
+                PlayerPos = PlayerObject.transform.position;
+                StartCoroutine(Spawning(EnemyPrototype, PlayerPos, PlayerObject, SpawnDist));
+            }
         }
 
 

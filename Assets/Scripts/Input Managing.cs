@@ -33,7 +33,7 @@ public class InputManaging : MonoBehaviour
         if (context.started)
         { 
             PlayerStatsReference.PlayerAttacks(PlayerPosReference);
-            print(PlayerPosReference);
+            
         }
 
     }
