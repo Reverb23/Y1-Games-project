@@ -14,4 +14,14 @@ public class Control : MonoBehaviour
         }
         
     }
+        public void RetryGame()
+    {
+        if (NextSceneLoaded == false)
+        {
+            SceneManager.LoadScene(1);
+
+            NextSceneLoaded = true;
+        }
+        
+    }
 }

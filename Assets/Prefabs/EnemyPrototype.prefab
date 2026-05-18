@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178669ab7fcc2944780ec8f092efe032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  Health: 15
+  Health: 5
   EnemyHealthBarReference: {fileID: 4892198479623075036}
 --- !u!50 &6547618686071940665
 Rigidbody2D:

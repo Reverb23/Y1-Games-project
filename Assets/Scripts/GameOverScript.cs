@@ -26,6 +26,11 @@ public class GameOverScript : MonoBehaviour
 
         
     }
+    public void RetryGameCall()
+    {
+        Deathloader.RetryGame();
 
+        
+    }
 
 }
