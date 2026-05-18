@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UpdateKillLabel : MonoBehaviour
 {
-    private int TotalKillCount = 0;
+    public int TotalKillCount = 0;
     public PlayerStats PlayerStatsReference => PlayerStats.instance;
     public TMP_Text text;
 
@@ -27,7 +27,7 @@ public class UpdateKillLabel : MonoBehaviour
     public void UpdateKillCount()
     {
         TotalKillCount ++;
-        text.text = "Level Up " + Convert.ToString(PlayerStatsReference.KillCount)+"/"+Convert.ToString(PlayerStatsReference.LevelUpKills) + "\n" + "Level" + Convert.ToString(PlayerStatsReference.PlayerLevel)+"\n" + "Score: " + TotalKillCount;        
+        text.text = "Level Up " + Convert.ToString(PlayerStatsReference.KillCount)+"/"+Convert.ToString(PlayerStatsReference.LevelUpKills) + "\n" + "Level " + Convert.ToString(PlayerStatsReference.PlayerLevel)+"\n" + "Score: " + TotalKillCount;        
 
     }
 

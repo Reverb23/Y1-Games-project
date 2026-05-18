@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,6 +31,10 @@ public class PlayerStats : MonoBehaviour
     public PlayerHealthBar PlayerHealthBarReference;
     public EnemyHealthBar EnemyHealthBarReference;
     public UpdateKillLabel UpdateKillLabelReference;
+    public Animator animator;
+    float OldYPos;
+    
+    public GameOverScript GameOverScriptReference;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
@@ -43,13 +48,14 @@ public class PlayerStats : MonoBehaviour
         PlayerObject = GameObject.FindWithTag("Player");
         print(PlayerStats.instance);
         UpdateKillLabelReference.UpdateKillCount();
+        OldYPos = transform.position.y;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
@@ -62,18 +68,20 @@ public class PlayerStats : MonoBehaviour
             
         }
     
-        if (PlayerHealth <= 0)
+        if (PlayerHealth < 0)
         {
             Debug.Log("death");
+            PlayerAlive = false;
+            GameOverScriptReference.PlayerDead = true;
+            GameOverScriptReference.Setup();
+            //
             
         }
     
     }
     public void PlayerAttacks(Vector2 PlayerPos) //called whenever the player attacsk
     { 
-        //player level = amount of projectiles, inc every 5
-        //wrrk out angle from 360/proj -- Done
-        //level up by killing'WIP
+
 
 
         for (int i = 0; i<ProjectileAmount+1; i++) //spawn correct amount of projectiles
@@ -82,27 +90,16 @@ public class PlayerStats : MonoBehaviour
             ProjectileAngle += (float)(2*Math.PI)/ProjectileAmount; //Math.x uses radians not degrees
             Rigidbody2D Projectilerb = NewProjectile.GetComponent<Rigidbody2D>(); //has tyo be here as it is a new rb every time
             ProjectileDirection = new Vector2(Projectilerb.position.x-PlayerPos.x,Projectilerb.position.y-PlayerPos.y).normalized;
-            Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce;
-            
-            
+            Projectilerb.linearVelocity = ProjectileDirection * ProjectileForce; //applky force to projectile
+
+            //rotate projectile to face force direction
+            float angle = Mathf.Atan2(ProjectileDirection.y, ProjectileDirection.x) * Mathf.Rad2Deg;
+            // atan = arctan = cos/sin
+            NewProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
+            //rotate in z axis, flat in plane
         }
         
         ProjectileAngle = 0;
-        
-
-
-
-
-        //Move to PlayerLevel Function
-        // if (PlayerLevel < 6)
-        // {
-        //     PlayerProjAmount = 3;
-        // }
-        // else
-        // {
-        //     int PlayerProjAmount = (int)Math.Floor((double)PlayerLevel/5);
-        //     print(PlayerProjAmount);
-        // }
 
     }
     public void PlayerLevelUp()
@@ -113,15 +110,15 @@ public class PlayerStats : MonoBehaviour
         print("LEVEL UP");
         LevelUpKills = (int)(1.3f * LevelUpKills);
         if (PlayerLevel > 1)
-        {
+        { // scaling
             PlayerMaxHealth *= PlayerMult * ((float)Math.Log10(2*(PlayerLevel)));
             PlayerHealth *= PlayerMult * ((float)Math.Log10(2*(PlayerLevel)));
             PlayerDamage *= PlayerMult * ((float)Math.Log10(2 * (PlayerLevel)));
             print(PlayerHealth);
-            EnemyFollowing.MaxHealth = (int)((EnemyMult*1.3) * EnemyFollowing.MaxHealth);
+            EnemyFollowing.MaxHealth = (int)((EnemyMult*1.2) * EnemyFollowing.MaxHealth);
             EnemyFollowing.Damage = (int)((EnemyMult*1.5) * EnemyFollowing.Damage);
-            EnemyFollowing.Speed = (int)(EnemyMult * EnemyFollowing.Speed);
-            EnemySpawningReference.SpawnInterval = (0.99f*EnemySpawningReference.SpawnInterval);
+            EnemyFollowing.Speed = (int)((EnemyMult/1.39) * EnemyFollowing.Speed);
+            
             if (PlayerLevel % 3 == 0)
             {
                 ProjectileAmount++;
@@ -147,4 +144,4 @@ public class PlayerStats : MonoBehaviour
     }
 }
 
-//TODO make UI, HEalthbars, menus, player dying, timers
+//TODO , menus,  
