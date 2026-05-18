@@ -429,7 +429,6 @@ MonoBehaviour:
   EnemyHealthBarReference: {fileID: 2430767748847872628, guid: 8843014690cc2f148b71fd0083f0c30c, type: 3}
   UpdateKillLabelReference: {fileID: 1774852191}
   animator: {fileID: 992127973}
-  Deathloader: {fileID: 0}
   GameOverScriptReference: {fileID: 0}
 --- !u!61 &185857502
 BoxCollider2D:
@@ -872,7 +871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &371950230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,6 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   UpdateKillLabelReference: {fileID: 1774852191}
+  Deathloader: {fileID: 1040040079}
   PlayerDead: 0
   text: {fileID: 339327691}
 --- !u!224 &371950231
@@ -1631,7 +1631,6 @@ MonoBehaviour:
   EnemyHealthBarReference: {fileID: 2430767748847872628, guid: 8843014690cc2f148b71fd0083f0c30c, type: 3}
   UpdateKillLabelReference: {fileID: 1774852191}
   animator: {fileID: 992127973}
-  Deathloader: {fileID: 1040040079}
   GameOverScriptReference: {fileID: 371950230}
 --- !u!95 &992127973
 Animator:
@@ -2036,7 +2035,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1146933919}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 371950230}
+        m_TargetAssemblyTypeName: GameOverScript, Assembly-CSharp
+        m_MethodName: MainMenuCall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1146933919
 MonoBehaviour:
   m_ObjectHideFlags: 0
